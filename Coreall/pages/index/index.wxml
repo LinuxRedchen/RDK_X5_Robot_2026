@@ -1,0 +1,85 @@
+<!-- index.wxml -->
+<view class="page-container">
+  <!-- 首页标题 -->
+  <view class="head">
+    <view>{{title}}422123100915 郭雅婕</view>
+  </view>
+  <!-- 首页天气 -->
+  <view class="flex weather">
+    <view class="weather_image_view">
+      <image src="{{weatherInfo.imageUrl}}" class="weather_image" mode="widthFix"></image>
+    </view>
+    <view class="weather_info_view">
+      <view class="location_view">
+        <image src="/images/location.png" mode="widthFix" class="location_image"></image>
+        <text src="location_info">{{weatherInfo.province}} {{weatherInfo.city}}</text>
+      </view>
+      <view class="temp_info">{{weatherInfo.weather}} {{weatherInfo.temperature}}°C</view>
+      <view class="wind_info">湿度 {{weatherInfo.humidity}}% | 风力{{weatherInfo.windpower}}级</view>
+    </view>
+  </view>
+  <!-- 数据显示 - 执行器控制 -->
+  <view class="data-container">
+    <!-- 动态渲染 Sensor_List 中的传感器数据 -->
+    <block wx:for="{{Sensor_List}}" wx:key="id">
+      <view class="data-item">
+        <image src="{{item.img}}" class="data-picture"/>
+        <view class="time-display">{{item.time}}</view>
+        <view class="data-text">
+          <view class="data-title">{{item.name}}</view>
+          <view class="data-value">{{item.value}}{{item.unit}}</view>
+        </view>
+      </view>
+    </block>
+    <!-- 数据项：设备状态 -->
+    <view class="data-item device-status">
+      <image src="/images/Sensor/设备状态.png" class="data-picture"/>
+      <view class="data-text">
+        <view class="data-title">设备状态</view>
+        <view class="data-value" wx:if="{{device_status.data.data.list[0].status == 1}}">在线</view>
+        <view class="data-value" wx:elif="{{device_status.data.data.list[0].status != 1}}" style="color: red;">离线</view>
+      </view>
+    </view>
+    <!-- 动态渲染 Actuator_List 中的执行器控制 -->
+    <block wx:for="{{Actuator_List}}" wx:key="id">
+      <view class="data-item">
+        <image src="{{item.img}}" class="data-picture"/>
+        <view class="data-text">
+          <view class="data-title">{{item.name}}</view>
+          <view class="data-value">
+            <switch checked="{{item.value}}" bindchange="onenet_set_device_property" data-param="{{item.id}}" color="#3d77ff"/>
+          </view>
+        </view>
+      </view>
+    </block>
+  </view>
+  <!-- 参数设置容器 -->
+  <view class="settings-container">
+    <view class="settings-title">参数说明:风扇状态、外卖柜门状态0(关)/1(开)  冷热0(制热)/1(制冷)
+    </view>
+    
+    <!-- 动态渲染所有阈值设置 -->
+    <block wx:for="{{settingsList}}" wx:key="id">
+      <view class="setting-item">
+        <view class="setting-label">{{item.name}}</view>
+        <view class="setting-control">
+          <view class="custom-slider">
+            <view class="slider-track">
+              <view class="slider-active" style="width: {{item.percent}}"></view>
+              <view 
+                class="slider-thumb" 
+                style="left: {{item.position}}"
+                data-id="{{item.id}}"
+                bindtouchstart="handleTouchStart"
+                bindtouchmove="handleTouchMove"
+              ></view>
+            </view>
+            <text class="setting-value">{{item.value}}{{item.unit}}</text>
+          </view>
+        </view>
+      </view>
+    </block>
+    <view class="save-button" bindtap="saveSettings">保存设置</view>
+  </view>
+</view>
+

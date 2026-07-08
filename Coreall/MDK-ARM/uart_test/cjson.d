@@ -1,0 +1,9 @@
+uart_test\cjson.o: ..\Net\CJSON\cJSON.c
+uart_test\cjson.o: D:\Keil5\ARM\ARMCC\Bin\..\include\string.h
+uart_test\cjson.o: D:\Keil5\ARM\ARMCC\Bin\..\include\stdio.h
+uart_test\cjson.o: D:\Keil5\ARM\ARMCC\Bin\..\include\math.h
+uart_test\cjson.o: D:\Keil5\ARM\ARMCC\Bin\..\include\stdlib.h
+uart_test\cjson.o: D:\Keil5\ARM\ARMCC\Bin\..\include\float.h
+uart_test\cjson.o: D:\Keil5\ARM\ARMCC\Bin\..\include\limits.h
+uart_test\cjson.o: D:\Keil5\ARM\ARMCC\Bin\..\include\ctype.h
+uart_test\cjson.o: ..\Net\CJSON\cJSON.h
